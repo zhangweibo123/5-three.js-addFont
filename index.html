@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./three.js"></script>
+    <script src="./WebGL.js"></script>
+    <script src="./OrbitControls.js"></script>
+    <script src="./stats.min.js"></script>
+    <script src="./initThree.js"></script>
+    <title>init</title>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+      #three {
+        width: 700px;
+        height: 500px;
+        position: relative;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="three"></div>
+  </body>
+  <script>
+    init(700, 500, false, false);
+    var loader = new THREE.FontLoader();
+
+    loader.load("./fonts/gentilis_bold.typeface.json", function (font) {
+      var geometry = new THREE.TextGeometry("lalala", {
+        font: font,
+        size: 2,
+        height: 0.1,
+        curveSegments: 0.1,
+        bevelEnabled: true,
+        bevelThickness: 0.1,
+        bevelSize: 0.01,
+        bevelSegments: 10,
+      });
+      var material = new THREE.MeshPhysicalMaterial({ color: 0xa52a2a });
+      var sphere = new THREE.Mesh(geometry, material);
+      // sphere.rotation.x = 0.13 * Math.PI;
+      sphere.position.set(-3, 0, 0);
+      scene.add(sphere);
+    });
+
+    function render() {
+      // 循环动画
+      requestAnimationFrame(render);
+      renderer.render(scene, camera);
+      // stats.update();
+    }
+    render();
+  </script>
+</html>
